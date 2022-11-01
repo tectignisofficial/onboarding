@@ -7,50 +7,50 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-'use strict';
+"use strict";
 
 $(function () {
   // Register Quill Fonts
-  var Font = Quill.import('formats/font');
-  Font.whitelist = ['sofia', 'slabo', 'roboto', 'inconsolata', 'ubuntu'];
+  var Font = Quill.import("formats/font");
+  Font.whitelist = ["sofia", "slabo", "roboto", "inconsolata", "ubuntu"];
   Quill.register(Font, true);
 
-  var compose = $('.compose-email'),
-    composeMailModal = $('#compose-mail'),
-    menuToggle = $('.menu-toggle'),
-    sidebarToggle = $('.sidebar-toggle'),
-    sidebarLeft = $('.sidebar-left'),
-    sidebarMenuList = $('.sidebar-menu-list'),
-    emailAppList = $('.email-app-list'),
-    emailUserList = $('.email-user-list'),
-    emailUserListInput = $('.email-user-list .form-check'),
-    emailScrollArea = $('.email-scroll-area'),
-    emailTo = $('#email-to'),
-    emailCC = $('#emailCC'),
-    emailBCC = $('#emailBCC'),
-    toggleCC = $('.toggle-cc'),
-    toggleBCC = $('.toggle-bcc'),
-    wrapperCC = $('.cc-wrapper'),
-    wrapperBCC = $('.bcc-wrapper'),
-    emailDetails = $('.email-app-details'),
-    listGroupMsg = $('.list-group-messages'),
-    goBack = $('.go-back'),
-    favoriteStar = $('.email-application .email-favorite'),
-    userActions = $('.user-action'),
-    mailDelete = $('.mail-delete'),
-    mailUnread = $('.mail-unread'),
-    emailSearch = $('#email-search'),
-    composeModal = $('.modal'),
-    modalDialog = $('.modal-dialog'),
-    editorEl = $('#message-editor .editor'),
-    overlay = $('.body-content-overlay'),
-    composeMaximize = $('.compose-maximize'),
-    isRtl = $('html').attr('data-textdirection') === 'rtl';
+  var compose = $(".compose-email"),
+    composeMailModal = $("#compose-mail"),
+    menuToggle = $(".menu-toggle"),
+    sidebarToggle = $(".sidebar-toggle"),
+    sidebarLeft = $(".sidebar-left"),
+    sidebarMenuList = $(".sidebar-menu-list"),
+    emailAppList = $(".email-app-list"),
+    emailUserList = $(".email-user-list"),
+    emailUserListInput = $(".email-user-list .form-check"),
+    emailScrollArea = $(".email-scroll-area"),
+    emailTo = $("#email-to"),
+    emailCC = $("#emailCC"),
+    emailBCC = $("#emailBCC"),
+    toggleCC = $(".toggle-cc"),
+    toggleBCC = $(".toggle-bcc"),
+    wrapperCC = $(".cc-wrapper"),
+    wrapperBCC = $(".bcc-wrapper"),
+    emailDetails = $(".email-app-details"),
+    listGroupMsg = $(".list-group-messages"),
+    goBack = $(".go-back"),
+    favoriteStar = $(".email-application .email-favorite"),
+    userActions = $(".user-action"),
+    mailDelete = $(".mail-delete"),
+    mailUnread = $(".mail-unread"),
+    emailSearch = $("#email-search"),
+    composeModal = $(".modal"),
+    modalDialog = $(".modal-dialog"),
+    editorEl = $("#message-editor .editor"),
+    overlay = $(".body-content-overlay"),
+    composeMaximize = $(".compose-maximize"),
+    isRtl = $("html").attr("data-textdirection") === "rtl";
 
-  var assetPath = '../../../app-assets/';
+  var assetPath = "app-assets/";
 
-  if ($('body').attr('data-framework') === 'laravel') {
-    assetPath = $('body').attr('data-asset-path');
+  if ($("body").attr("data-framework") === "laravel") {
+    assetPath = $("body").attr("data-asset-path");
   }
 
   // Toggle BCC on mount
@@ -65,14 +65,14 @@ $(function () {
 
   // Toggle BCC input
   if (toggleBCC.length) {
-    toggleBCC.on('click', function () {
+    toggleBCC.on("click", function () {
       wrapperBCC.toggle();
     });
   }
 
   // Toggle CC input
   if (toggleCC.length) {
-    toggleCC.on('click', function () {
+    toggleCC.on("click", function () {
       wrapperCC.toggle();
     });
   }
@@ -96,14 +96,14 @@ $(function () {
   }
   // if it is a touch device
   else {
-    $(sidebarMenuList).css('overflow', 'scroll');
-    $(emailUserList).css('overflow', 'scroll');
-    $(emailScrollArea).css('overflow', 'scroll');
+    $(sidebarMenuList).css("overflow", "scroll");
+    $(emailUserList).css("overflow", "scroll");
+    $(emailScrollArea).css("overflow", "scroll");
   }
 
   $(document).keyup(function (e) {
-    if (e.key === 'Escape') {
-      if (composeMailModal.find('.modal-dialog').hasClass('modal-fullscreen')) {
+    if (e.key === "Escape") {
+      if (composeMailModal.find(".modal-dialog").hasClass("modal-fullscreen")) {
         composeMaximize.click();
       }
     }
@@ -114,11 +114,16 @@ $(function () {
     if (!option.id) {
       return option.text;
     }
-    var avatarImg = feather.icons['user'].toSvg({
-      class: 'me-0'
+    var avatarImg = feather.icons["user"].toSvg({
+      class: "me-0",
     });
-    if ($(option.element).data('avatar')) {
-      avatarImg = "<img src='" + assetPath + 'images/avatars/' + $(option.element).data('avatar') + "' alt='avatar' />";
+    if ($(option.element).data("avatar")) {
+      avatarImg =
+        "<img src='" +
+        assetPath +
+        "images/avatars/" +
+        $(option.element).data("avatar") +
+        "' alt='avatar' />";
     }
 
     var $avatar =
@@ -126,10 +131,10 @@ $(function () {
       "<div class='avatar avatar-sm my-0 me-50'>" +
       "<span class='avatar-content'>" +
       avatarImg +
-      '</span>' +
-      '</div>' +
+      "</span>" +
+      "</div>" +
       option.text +
-      '</div>';
+      "</div>";
 
     return $avatar;
   }
@@ -140,10 +145,10 @@ $(function () {
       templateResult: renderGuestAvatar,
       templateSelection: renderGuestAvatar,
       tags: true,
-      tokenSeparators: [',', ' '],
+      tokenSeparators: [",", " "],
       escapeMarkup: function (es) {
         return es;
-      }
+      },
     });
   }
 
@@ -154,10 +159,10 @@ $(function () {
       templateResult: renderGuestAvatar,
       templateSelection: renderGuestAvatar,
       tags: true,
-      tokenSeparators: [',', ' '],
+      tokenSeparators: [",", " "],
       escapeMarkup: function (es) {
         return es;
-      }
+      },
     });
   }
 
@@ -168,105 +173,105 @@ $(function () {
       templateResult: renderGuestAvatar,
       templateSelection: renderGuestAvatar,
       tags: true,
-      tokenSeparators: [',', ' '],
+      tokenSeparators: [",", " "],
       escapeMarkup: function (es) {
         return es;
-      }
+      },
     });
   }
 
   // compose email
   if (compose.length) {
-    compose.on('click', function () {
+    compose.on("click", function () {
       // showing rightSideBar
-      overlay.removeClass('show');
+      overlay.removeClass("show");
       // hiding left sidebar
-      sidebarLeft.removeClass('show');
+      sidebarLeft.removeClass("show");
       // all input forms
-      $('.compose-form input').val('');
-      emailTo.val([]).trigger('change');
-      emailCC.val([]).trigger('change');
-      emailBCC.val([]).trigger('change');
+      $(".compose-form input").val("");
+      emailTo.val([]).trigger("change");
+      emailCC.val([]).trigger("change");
+      emailBCC.val([]).trigger("change");
       wrapperCC.hide();
       wrapperBCC.hide();
       // quill editor content
-      var quill_editor = $('.compose-form .ql-editor');
-      quill_editor[0].innerHTML = '';
+      var quill_editor = $(".compose-form .ql-editor");
+      quill_editor[0].innerHTML = "";
     });
   }
 
   // Main menu toggle should hide app menu
   if (menuToggle.length) {
-    menuToggle.on('click', function (e) {
-      sidebarLeft.removeClass('show');
-      overlay.removeClass('show');
+    menuToggle.on("click", function (e) {
+      sidebarLeft.removeClass("show");
+      overlay.removeClass("show");
     });
   }
 
   // Email sidebar toggle
   if (sidebarToggle.length) {
-    sidebarToggle.on('click', function (e) {
+    sidebarToggle.on("click", function (e) {
       e.stopPropagation();
-      sidebarLeft.toggleClass('show');
-      overlay.addClass('show');
+      sidebarLeft.toggleClass("show");
+      overlay.addClass("show");
     });
   }
 
   if (composeMaximize)
-    composeMaximize.on('click', function () {
-      composeModal.toggleClass('modal-sticky');
-      modalDialog.toggleClass('modal-fullscreen');
-      if (modalDialog.hasClass('modal-fullscreen')) {
-        $(this).html(feather.icons['minimize-2'].toSvg());
+    composeMaximize.on("click", function () {
+      composeModal.toggleClass("modal-sticky");
+      modalDialog.toggleClass("modal-fullscreen");
+      if (modalDialog.hasClass("modal-fullscreen")) {
+        $(this).html(feather.icons["minimize-2"].toSvg());
       } else {
-        $(this).html(feather.icons['maximize-2'].toSvg());
+        $(this).html(feather.icons["maximize-2"].toSvg());
       }
     });
 
   // Overlay Click
   if (overlay.length) {
-    overlay.on('click', function (e) {
-      sidebarLeft.removeClass('show');
-      overlay.removeClass('show');
+    overlay.on("click", function (e) {
+      sidebarLeft.removeClass("show");
+      overlay.removeClass("show");
     });
   }
 
   // Email Right sidebar toggle
-  if (emailUserList.find('li').length) {
-    emailUserList.find('li').on('click', function (e) {
-      emailDetails.toggleClass('show');
+  if (emailUserList.find("li").length) {
+    emailUserList.find("li").on("click", function (e) {
+      emailDetails.toggleClass("show");
     });
   }
 
   // Add class active on click of sidebar list
-  if (listGroupMsg.find('a').length) {
-    listGroupMsg.find('a').on('click', function () {
-      if (listGroupMsg.find('a').hasClass('active')) {
-        listGroupMsg.find('a').removeClass('active');
+  if (listGroupMsg.find("a").length) {
+    listGroupMsg.find("a").on("click", function () {
+      if (listGroupMsg.find("a").hasClass("active")) {
+        listGroupMsg.find("a").removeClass("active");
       }
-      $(this).addClass('active');
+      $(this).addClass("active");
     });
   }
 
   // Email detail view back button click
   if (goBack.length) {
-    goBack.on('click', function (e) {
+    goBack.on("click", function (e) {
       e.stopPropagation();
-      emailDetails.removeClass('show');
+      emailDetails.removeClass("show");
     });
   }
 
   // Favorite star click
   if (favoriteStar.length) {
-    favoriteStar.on('click', function (e) {
-      $(this).find('svg').toggleClass('favorite');
+    favoriteStar.on("click", function (e) {
+      $(this).find("svg").toggleClass("favorite");
       e.stopPropagation();
       // show toast only have favorite class
-      if ($(this).find('svg').hasClass('favorite')) {
-        toastr['success']('Updated mail to favorite', 'Favorite Mail ⭐️', {
+      if ($(this).find("svg").hasClass("favorite")) {
+        toastr["success"]("Updated mail to favorite", "Favorite Mail ⭐️", {
           closeButton: true,
           tapToDismiss: false,
-          rtl: isRtl
+          rtl: isRtl,
         });
       }
     });
@@ -274,91 +279,97 @@ $(function () {
 
   // For app sidebar on small screen
   if ($(window).width() > 768) {
-    if (overlay.hasClass('show')) {
-      overlay.removeClass('show');
+    if (overlay.hasClass("show")) {
+      overlay.removeClass("show");
     }
   }
 
   // single checkbox select
   if (emailUserListInput.length) {
-    emailUserListInput.on('click', function (e) {
+    emailUserListInput.on("click", function (e) {
       e.stopPropagation();
     });
-    emailUserListInput.find('input').on('change', function (e) {
+    emailUserListInput.find("input").on("change", function (e) {
       e.stopPropagation();
       var $this = $(this);
-      if ($this.is(':checked')) {
-        $this.closest('.user-mail').addClass('selected-row-bg');
+      if ($this.is(":checked")) {
+        $this.closest(".user-mail").addClass("selected-row-bg");
       } else {
-        $this.closest('.user-mail').removeClass('selected-row-bg');
+        $this.closest(".user-mail").removeClass("selected-row-bg");
       }
     });
   }
 
   // select all
-  $(document).on('click', '.email-app-list .selectAll input', function () {
-    if ($(this).is(':checked')) {
+  $(document).on("click", ".email-app-list .selectAll input", function () {
+    if ($(this).is(":checked")) {
       userActions
-        .find('.form-check .form-check-input')
-        .prop('checked', this.checked)
-        .closest('.user-mail')
-        .addClass('selected-row-bg');
+        .find(".form-check .form-check-input")
+        .prop("checked", this.checked)
+        .closest(".user-mail")
+        .addClass("selected-row-bg");
     } else {
       userActions
-        .find('.form-check .form-check-input')
-        .prop('checked', '')
-        .closest('.user-mail')
-        .removeClass('selected-row-bg');
+        .find(".form-check .form-check-input")
+        .prop("checked", "")
+        .closest(".user-mail")
+        .removeClass("selected-row-bg");
     }
   });
 
   // Delete selected Mail from list
   if (mailDelete.length) {
-    mailDelete.on('click', function () {
-      if (userActions.find('.form-check .form-check-input:checked').length) {
-        userActions.find('.form-check .form-check-input:checked').closest('.user-mail').remove();
-        emailAppList.find('.selectAll input').prop('checked', false);
-        toastr['error']('You have removed email.', 'Mail Deleted!', {
+    mailDelete.on("click", function () {
+      if (userActions.find(".form-check .form-check-input:checked").length) {
+        userActions
+          .find(".form-check .form-check-input:checked")
+          .closest(".user-mail")
+          .remove();
+        emailAppList.find(".selectAll input").prop("checked", false);
+        toastr["error"]("You have removed email.", "Mail Deleted!", {
           closeButton: true,
           tapToDismiss: false,
-          rtl: isRtl
+          rtl: isRtl,
         });
-        userActions.find('.form-check .form-check-input').prop('checked', '');
+        userActions.find(".form-check .form-check-input").prop("checked", "");
       }
     });
   }
 
   // Mark mail unread
   if (mailUnread.length) {
-    mailUnread.on('click', function () {
-      userActions.find('.form-check .form-check-input:checked').closest('.user-mail').removeClass('mail-read');
+    mailUnread.on("click", function () {
+      userActions
+        .find(".form-check .form-check-input:checked")
+        .closest(".user-mail")
+        .removeClass("mail-read");
     });
   }
 
   // Filter
   if (emailSearch.length) {
-    emailSearch.on('keyup', function () {
+    emailSearch.on("keyup", function () {
       var value = $(this).val().toLowerCase();
-      if (value !== '') {
-        emailUserList.find('.email-media-list li').filter(function () {
+      if (value !== "") {
+        emailUserList.find(".email-media-list li").filter(function () {
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
-        var tbl_row = emailUserList.find('.email-media-list li:visible').length;
+        var tbl_row = emailUserList.find(".email-media-list li:visible").length;
 
         //Check if table has row or not
         if (tbl_row == 0) {
-          emailUserList.find('.no-results').addClass('show');
-          emailUserList.animate({ scrollTop: '0' }, 500);
+          emailUserList.find(".no-results").addClass("show");
+          emailUserList.animate({ scrollTop: "0" }, 500);
         } else {
-          if (emailUserList.find('.no-results').hasClass('show')) {
-            emailUserList.find('.no-results').removeClass('show');
+          if (emailUserList.find(".no-results").hasClass("show")) {
+            emailUserList.find(".no-results").removeClass("show");
           }
         }
       } else {
         // If filter box is empty
-        emailUserList.find('.email-media-list li').show();
-        if (emailUserList.find('.no-results').hasClass('show')) {
-          emailUserList.find('.no-results').removeClass('show');
+        emailUserList.find(".email-media-list li").show();
+        if (emailUserList.find(".no-results").hasClass("show")) {
+          emailUserList.find(".no-results").removeClass("show");
         }
       }
     });
@@ -367,30 +378,30 @@ $(function () {
   // Email compose Editor
   if (editorEl.length) {
     var emailEditor = new Quill(editorEl[0], {
-      bounds: '#message-editor .editor',
+      bounds: "#message-editor .editor",
       modules: {
         formula: true,
         syntax: true,
-        toolbar: '.compose-editor-toolbar'
+        toolbar: ".compose-editor-toolbar",
       },
-      placeholder: 'Message',
-      theme: 'snow'
+      placeholder: "Message",
+      theme: "snow",
     });
   }
 
   // On navbar search and bookmark Icon click, hide compose mail
-  $('.nav-link-search, .bookmark-star').on('click', function () {
-    composeModal.modal('hide');
+  $(".nav-link-search, .bookmark-star").on("click", function () {
+    composeModal.modal("hide");
   });
 });
 
-$(window).on('resize', function () {
-  var sidebarLeft = $('.sidebar-left');
+$(window).on("resize", function () {
+  var sidebarLeft = $(".sidebar-left");
   // remove show classes from sidebar and overlay if size is > 992
   if ($(window).width() > 768) {
-    if ($('.app-content .body-content-overlay').hasClass('show')) {
-      sidebarLeft.removeClass('show');
-      $('.app-content .body-content-overlay').removeClass('show');
+    if ($(".app-content .body-content-overlay").hasClass("show")) {
+      sidebarLeft.removeClass("show");
+      $(".app-content .body-content-overlay").removeClass("show");
     }
   }
 });

@@ -1,5 +1,5 @@
-@import '../../../bootstrap-extended/include'; // Bootstrap includes
-@import '../../../components/include'; // Components includes
+@import "bootstrap-extended/include"; // Bootstrap includes
+@import "components/include"; // Components includes
 
 // remove picker outline
 .picker__holder {
@@ -25,7 +25,7 @@
 .picker__nav--prev:before,
 .picker__nav--next:before,
 .picker__button--close:before {
-  content: '';
+  content: "";
   background-repeat: no-repeat;
   background-position: center;
   background-size: 18px;
@@ -34,13 +34,25 @@
   height: 18px;
 }
 .picker__nav--prev:before {
-  background-image: url(str-replace(str-replace($chevron-left, 'currentColor', $body-color), '#', '%23'));
+  background-image: url(str-replace(
+    str-replace($chevron-left, "currentColor", $body-color),
+    "#",
+    "%23"
+  ));
 }
 .picker__nav--next:before {
-  background-image: url(str-replace(str-replace($chevron-right, 'currentColor', $body-color), '#', '%23'));
+  background-image: url(str-replace(
+    str-replace($chevron-right, "currentColor", $body-color),
+    "#",
+    "%23"
+  ));
 }
 .picker__button--close:before {
-  background-image: url(str-replace(str-replace($remove, 'currentColor', $danger), '#', '%23'));
+  background-image: url(str-replace(
+    str-replace($remove, "currentColor", $danger),
+    "#",
+    "%23"
+  ));
   height: 10px !important;
 }
 
@@ -96,7 +108,7 @@
               &.picker__day--outfocus {
                 opacity: 0.65;
               }
-              &.picker__day--today{
+              &.picker__day--today {
                 color: $white;
               }
 
@@ -161,11 +173,19 @@
 }
 
 //RTL Style
-[dir='rtl'] {
+[dir="rtl"] {
   .picker__nav--prev:before {
-    background-image: url(str-replace(str-replace($chevron-right, 'currentColor', $body-color), '#', '%23'));
+    background-image: url(str-replace(
+      str-replace($chevron-right, "currentColor", $body-color),
+      "#",
+      "%23"
+    ));
   }
   .picker__nav--next:before {
-    background-image: url(str-replace(str-replace($chevron-left, 'currentColor', $body-color), '#', '%23'));
+    background-image: url(str-replace(
+      str-replace($chevron-left, "currentColor", $body-color),
+      "#",
+      "%23"
+    ));
   }
 }

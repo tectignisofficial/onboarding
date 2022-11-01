@@ -1,11 +1,11 @@
 $(function () {
-  ('use strict');
+  ("use strict");
 
-  var assetsPath = '../../../app-assets/',
-    addMemberSelect = $('#addMemberSelect');
+  var assetsPath = "app-assets/",
+    addMemberSelect = $("#addMemberSelect");
 
-  if ($('body').attr('data-framework') === 'laravel') {
-    assetsPath = $('body').attr('data-asset-path');
+  if ($("body").attr("data-framework") === "laravel") {
+    assetsPath = $("body").attr("data-asset-path");
   }
 
   // --- Share project ----- //
@@ -23,25 +23,25 @@ $(function () {
         "<span class='avatar-content'>" +
         "<img src='" +
         assetsPath +
-        'images/avatars/' +
-        $(option.element).data('avatar') +
+        "images/avatars/" +
+        $(option.element).data("avatar") +
         "' alt='avatar' />" +
-        '</span>' +
-        '</div>' +
+        "</span>" +
+        "</div>" +
         option.text +
-        '</div>';
+        "</div>";
 
       return $avatar;
     }
 
     addMemberSelect.wrap('<div class="position-relative"></div>').select2({
-      placeholder: 'Add project members by name or email...',
+      placeholder: "Add project members by name or email...",
       dropdownParent: addMemberSelect.parent(),
       templateResult: renderGuestAvatar,
       templateSelection: renderGuestAvatar,
       escapeMarkup: function (es) {
         return es;
-      }
+      },
     });
   }
 

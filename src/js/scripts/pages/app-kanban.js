@@ -1,31 +1,31 @@
 $(function () {
-  'use strict';
+  "use strict";
 
   var boards,
     openSidebar = true,
-    kanbanWrapper = $('.kanban-wrapper'),
-    sidebar = $('.update-item-sidebar'),
-    datePicker = $('#due-date'),
-    select2 = $('.select2'),
-    commentEditor = $('.comment-editor'),
-    addNewForm = $('.add-new-board'),
-    updateItemSidebar = $('.update-item-sidebar'),
-    addNewInput = $('.add-new-board-input');
+    kanbanWrapper = $(".kanban-wrapper"),
+    sidebar = $(".update-item-sidebar"),
+    datePicker = $("#due-date"),
+    select2 = $(".select2"),
+    commentEditor = $(".comment-editor"),
+    addNewForm = $(".add-new-board"),
+    updateItemSidebar = $(".update-item-sidebar"),
+    addNewInput = $(".add-new-board-input");
 
-  var assetPath = '../../../app-assets/';
-  if ($('body').attr('data-framework') === 'laravel') {
-    assetPath = $('body').attr('data-asset-path');
+  var assetPath = "app-assets/";
+  if ($("body").attr("data-framework") === "laravel") {
+    assetPath = $("body").attr("data-asset-path");
   }
 
   // Get Data
   $.ajax({
-    type: 'GET',
-    dataType: 'json',
+    type: "GET",
+    dataType: "json",
     async: false,
-    url: assetPath + 'data/kanban.json',
+    url: assetPath + "data/kanban.json",
     success: function (data) {
       boards = data;
-    }
+    },
   });
 
   // Toggle add new input and actions
@@ -34,10 +34,10 @@ $(function () {
   // datepicker init
   if (datePicker.length) {
     datePicker.flatpickr({
-      monthSelectorType: 'static',
+      monthSelectorType: "static",
       altInput: true,
-      altFormat: 'j F, Y',
-      dateFormat: 'Y-m-d'
+      altFormat: "j F, Y",
+      dateFormat: "Y-m-d",
     });
   }
 
@@ -47,7 +47,12 @@ $(function () {
       if (!option.id) {
         return option.text;
       }
-      var $badge = "<div class='badge " + $(option.element).data('color') + " rounded-pill'> " + option.text + '</div>';
+      var $badge =
+        "<div class='badge " +
+        $(option.element).data("color") +
+        " rounded-pill'> " +
+        option.text +
+        "</div>";
 
       return $badge;
     }
@@ -55,25 +60,25 @@ $(function () {
     select2.each(function () {
       var $this = $(this);
       $this.wrap("<div class='position-relative'></div>").select2({
-        placeholder: 'Select Label',
+        placeholder: "Select Label",
         dropdownParent: $this.parent(),
         templateResult: renderLabels,
         templateSelection: renderLabels,
         escapeMarkup: function (es) {
           return es;
-        }
+        },
       });
     });
   }
 
   // Comment editor
   if (commentEditor.length) {
-    new Quill('.comment-editor', {
+    new Quill(".comment-editor", {
       modules: {
-        toolbar: '.comment-toolbar'
+        toolbar: ".comment-toolbar",
       },
-      placeholder: 'Write a Comment... ',
-      theme: 'snow'
+      placeholder: "Write a Comment... ",
+      theme: "snow",
     });
   }
 
@@ -81,25 +86,25 @@ $(function () {
   function renderBoardDropdown() {
     return (
       "<div class='dropdown'>" +
-      feather.icons['more-vertical'].toSvg({
-        class: 'dropdown-toggle cursor-pointer font-medium-3 me-0',
-        id: 'board-dropdown',
-        'data-bs-toggle': 'dropdown',
-        'aria-haspopup': 'true',
-        'aria-expanded': 'false'
+      feather.icons["more-vertical"].toSvg({
+        class: "dropdown-toggle cursor-pointer font-medium-3 me-0",
+        id: "board-dropdown",
+        "data-bs-toggle": "dropdown",
+        "aria-haspopup": "true",
+        "aria-expanded": "false",
       }) +
       "<div class='dropdown-menu dropdown-menu-end' aria-labelledby='board-dropdown'>" +
       "<a class='dropdown-item delete-board' href='#'> " +
-      feather.icons['trash'].toSvg({ class: 'font-medium-1 align-middle' }) +
+      feather.icons["trash"].toSvg({ class: "font-medium-1 align-middle" }) +
       "<span class='align-middle ms-25'>Delete</span></a>" +
       "<a class='dropdown-item' href='#'>" +
-      feather.icons['edit'].toSvg({ class: 'font-medium-1 align-middle' }) +
+      feather.icons["edit"].toSvg({ class: "font-medium-1 align-middle" }) +
       "<span class='align-middle ms-25'>Rename</span></a>" +
       "<a class='dropdown-item' href='#'>" +
-      feather.icons['archive'].toSvg({ class: 'font-medium-1 align-middle' }) +
+      feather.icons["archive"].toSvg({ class: "font-medium-1 align-middle" }) +
       "<span class='align-middle ms-25'>Archive</span></a>" +
-      '</div>' +
-      '</div>'
+      "</div>" +
+      "</div>"
     );
   }
 
@@ -107,19 +112,19 @@ $(function () {
   function renderDropdown() {
     return (
       "<div class='dropdown item-dropdown px-1'>" +
-      feather.icons['more-vertical'].toSvg({
-        class: 'dropdown-toggle cursor-pointer me-0 font-medium-1',
-        id: 'item-dropdown',
-        ' data-bs-toggle': 'dropdown',
-        'aria-haspopup': 'true',
-        'aria-expanded': 'false'
+      feather.icons["more-vertical"].toSvg({
+        class: "dropdown-toggle cursor-pointer me-0 font-medium-1",
+        id: "item-dropdown",
+        " data-bs-toggle": "dropdown",
+        "aria-haspopup": "true",
+        "aria-expanded": "false",
       }) +
       "<div class='dropdown-menu dropdown-menu-end' aria-labelledby='item-dropdown'>" +
       "<a class='dropdown-item' href='#'>Copy task link</a>" +
       "<a class='dropdown-item' href='#'>Duplicate task</a>" +
       "<a class='dropdown-item delete-task' href='#'>Delete</a>" +
-      '</div>' +
-      '</div>'
+      "</div>" +
+      "</div>"
     );
   }
   // Render header
@@ -131,48 +136,51 @@ $(function () {
       color +
       "'> " +
       text +
-      '</div>' +
-      '</div>' +
+      "</div>" +
+      "</div>" +
       renderDropdown() +
-      '</div>'
+      "</div>"
     );
   }
 
   // Render avatar
   function renderAvatar(images, pullUp, margin, members, size) {
-    var $transition = pullUp ? ' pull-up' : '',
-      member = members !== undefined ? members.split(',') : '';
+    var $transition = pullUp ? " pull-up" : "",
+      member = members !== undefined ? members.split(",") : "";
 
     return images !== undefined
       ? images
-          .split(',')
+          .split(",")
           .map(function (img, index, arr) {
-            var $margin = margin !== undefined && index !== arr.length - 1 ? ' me-' + margin + '' : '';
+            var $margin =
+              margin !== undefined && index !== arr.length - 1
+                ? " me-" + margin + ""
+                : "";
 
             return (
               "<li class='avatar kanban-item-avatar" +
-              ' ' +
+              " " +
               $transition +
-              ' ' +
+              " " +
               $margin +
               "'" +
               "data-bs-toggle='tooltip' data-bs-placement='top'" +
               "title='" +
               member[index] +
               "'" +
-              '>' +
+              ">" +
               "<img src='" +
               assetPath +
-              'images/portrait/small/' +
+              "images/portrait/small/" +
               img +
               "' alt='Avatar' height='" +
               size +
               "'>" +
-              '</li>'
+              "</li>"
             );
           })
-          .join(' ')
-      : '';
+          .join(" ")
+      : "";
   }
 
   // Render footer
@@ -180,118 +188,128 @@ $(function () {
     return (
       "<div class='d-flex justify-content-between align-items-center flex-wrap mt-1'>" +
       "<div> <span class='align-middle me-50'>" +
-      feather.icons['paperclip'].toSvg({ class: 'font-medium-1 align-middle me-25' }) +
+      feather.icons["paperclip"].toSvg({
+        class: "font-medium-1 align-middle me-25",
+      }) +
       "<span class='attachments align-middle'>" +
       attachments +
-      '</span>' +
+      "</span>" +
       "</span> <span class='align-middle'>" +
-      feather.icons['message-square'].toSvg({ class: 'font-medium-1 align-middle me-25' }) +
-      '<span>' +
+      feather.icons["message-square"].toSvg({
+        class: "font-medium-1 align-middle me-25",
+      }) +
+      "<span>" +
       comments +
-      '</span>' +
-      '</span></div>' +
+      "</span>" +
+      "</span></div>" +
       "<ul class='avatar-group mb-0'>" +
       renderAvatar(assigned, true, 0, members, 28) +
-      '</ul>' +
-      '</div>'
+      "</ul>" +
+      "</div>"
     );
   }
 
   // Init kanban
   var kanban = new jKanban({
-    element: '.kanban-wrapper',
-    gutter: '15px',
-    widthBoard: '250px',
+    element: ".kanban-wrapper",
+    gutter: "15px",
+    widthBoard: "250px",
     dragItems: true,
     boards: boards,
     dragBoards: true,
     addItemButton: true,
     itemAddOptions: {
       enabled: true, // add a button to board for easy item creation
-      content: '+ Add New Item', // text or html content of the board button
-      class: 'kanban-title-button btn btn-default btn-xs', // default class of the button
-      footer: false // position the button on footer
+      content: "+ Add New Item", // text or html content of the board button
+      class: "kanban-title-button btn btn-default btn-xs", // default class of the button
+      footer: false, // position the button on footer
     },
     click: function (el) {
       var el = $(el);
       var flag = false;
-      var title = el.attr('data-eid') ? el.find('.kanban-text').text() : el.text(),
-        date = el.attr('data-due-date'),
+      var title = el.attr("data-eid")
+          ? el.find(".kanban-text").text()
+          : el.text(),
+        date = el.attr("data-due-date"),
         dateObj = new Date(),
         year = dateObj.getFullYear(),
         dateToUse = date
-          ? date + ', ' + year
+          ? date + ", " + year
           : dateObj.getDate() +
-            ' ' +
-            dateObj.toLocaleString('en', {
-              month: 'long'
+            " " +
+            dateObj.toLocaleString("en", {
+              month: "long",
             }) +
-            ', ' +
+            ", " +
             year,
-        label = el.attr('data-badge-text'),
-        avatars = el.attr('data-assigned');
+        label = el.attr("data-badge-text"),
+        avatars = el.attr("data-assigned");
 
-      if (el.find('.kanban-item-avatar').length) {
-        el.find('.kanban-item-avatar').on('click', function (e) {
+      if (el.find(".kanban-item-avatar").length) {
+        el.find(".kanban-item-avatar").on("click", function (e) {
           e.stopPropagation();
         });
       }
-      $(document).on('click','.item-dropdown', function(e) {
-        flag = true
-      })
-      setTimeout(function(){
-        if(flag === false) {
-          sidebar.modal('show');
+      $(document).on("click", ".item-dropdown", function (e) {
+        flag = true;
+      });
+      setTimeout(function () {
+        if (flag === false) {
+          sidebar.modal("show");
         }
-      }, 50)
-      sidebar.find('.update-item-form').on('submit', function (e) {
+      }, 50);
+      sidebar.find(".update-item-form").on("submit", function (e) {
         e.preventDefault();
       });
-      sidebar.find('#title').val(title);
-      sidebar.find(datePicker).next('.form-control').val(dateToUse);
-      sidebar.find(select2).val(label).trigger('change');
-      sidebar.find('.assigned').empty();
+      sidebar.find("#title").val(title);
+      sidebar.find(datePicker).next(".form-control").val(dateToUse);
+      sidebar.find(select2).val(label).trigger("change");
+      sidebar.find(".assigned").empty();
       sidebar
-        .find('.assigned')
+        .find(".assigned")
         .append(
-          renderAvatar(avatars, false, '50', el.attr('data-members'), 32) +
+          renderAvatar(avatars, false, "50", el.attr("data-members"), 32) +
             "<li class='avatar avatar-add-member ms-50'>" +
             "<span class='avatar-content'>" +
-            feather.icons['plus'].toSvg({ class: 'avatar-icon' }) +
-            '</li>'
+            feather.icons["plus"].toSvg({ class: "avatar-icon" }) +
+            "</li>"
         );
     },
     buttonClick: function (el, boardId) {
-      var addNew = document.createElement('form');
-      addNew.setAttribute('class', 'new-item-form');
+      var addNew = document.createElement("form");
+      addNew.setAttribute("class", "new-item-form");
       addNew.innerHTML =
         '<div class="mb-1">' +
         '<textarea class="form-control add-new-item" rows="2" placeholder="Add Content" required></textarea>' +
-        '</div>' +
+        "</div>" +
         '<div class="mb-2">' +
         '<button type="submit" class="btn btn-primary btn-sm me-1">Add</button>' +
         '<button type="button" class="btn btn-outline-secondary btn-sm cancel-add-item">Cancel</button>' +
-        '</div>';
+        "</div>";
       kanban.addForm(boardId, addNew);
-      addNew.querySelector('textarea').focus();
-      addNew.addEventListener('submit', function (e) {
+      addNew.querySelector("textarea").focus();
+      addNew.addEventListener("submit", function (e) {
         e.preventDefault();
         var currentBoard = $(".kanban-board[data-id='" + boardId + "']");
         kanban.addElement(boardId, {
-          title: "<span class='kanban-text'>" + e.target[0].value + '</span>',
-          id: boardId + '-' + currentBoard.find('.kanban-item').length + 1
+          title: "<span class='kanban-text'>" + e.target[0].value + "</span>",
+          id: boardId + "-" + currentBoard.find(".kanban-item").length + 1,
         });
 
-        currentBoard.find('.kanban-item:last-child .kanban-text').before(renderDropdown());
+        currentBoard
+          .find(".kanban-item:last-child .kanban-text")
+          .before(renderDropdown());
         addNew.remove();
       });
-      $(document).on('click', '.cancel-add-item', function () {
+      $(document).on("click", ".cancel-add-item", function () {
         $(this).closest(addNew).toggle();
       });
     },
     dragEl: function (el, source) {
-      $(el).find('.item-dropdown, .item-dropdown .dropdown-menu.show').removeClass('show');
-    }
+      $(el)
+        .find(".item-dropdown, .item-dropdown .dropdown-menu.show")
+        .removeClass("show");
+    },
   });
 
   if (kanbanWrapper.length) {
@@ -299,135 +317,149 @@ $(function () {
   }
 
   // Render add new inline with boards
-  $('.kanban-container').append(addNewForm);
+  $(".kanban-container").append(addNewForm);
 
   // Change add item button to flat button
-  $.each($('.kanban-title-button'), function () {
-    $(this).removeClass().addClass('kanban-title-button btn btn-flat-secondary btn-sm ms-50');
+  $.each($(".kanban-title-button"), function () {
+    $(this)
+      .removeClass()
+      .addClass("kanban-title-button btn btn-flat-secondary btn-sm ms-50");
     Waves.init();
     Waves.attach("[class*='btn-flat-']");
   });
 
   // Makes kanban title editable
-  $(document).on('mouseenter', '.kanban-title-board', function () {
-    $(this).attr('contenteditable', 'true');
+  $(document).on("mouseenter", ".kanban-title-board", function () {
+    $(this).attr("contenteditable", "true");
   });
 
   // Appends delete icon with title
-  $.each($('.kanban-board-header'), function () {
+  $.each($(".kanban-board-header"), function () {
     $(this).append(renderBoardDropdown());
   });
 
   // Deletes Board
-  $(document).on('click', '.delete-board', function () {
-    var id = $(this).closest('.kanban-board').data('id');
+  $(document).on("click", ".delete-board", function () {
+    var id = $(this).closest(".kanban-board").data("id");
     kanban.removeBoard(id);
   });
 
   // Delete task
-  $(document).on('click', '.dropdown-item.delete-task', function () {
+  $(document).on("click", ".dropdown-item.delete-task", function () {
     openSidebar = true;
-    var id = $(this).closest('.kanban-item').data('eid');
+    var id = $(this).closest(".kanban-item").data("eid");
     kanban.removeElement(id);
   });
 
   // Open/Cancel add new input
-  $('.add-new-btn, .cancel-add-new').on('click', function () {
+  $(".add-new-btn, .cancel-add-new").on("click", function () {
     addNewInput.toggle();
   });
 
   // Add new board
-  addNewForm.on('submit', function (e) {
+  addNewForm.on("submit", function (e) {
     e.preventDefault();
     var $this = $(this),
-      value = $this.find('.form-control').val(),
-      id = value.replace(/\s+/g, '-').toLowerCase();
+      value = $this.find(".form-control").val(),
+      id = value.replace(/\s+/g, "-").toLowerCase();
     kanban.addBoards([
       {
         id: id,
-        title: value
-      }
+        title: value,
+      },
     ]);
     // Adds delete board option to new board & updates data-order
-    $('.kanban-board:last-child').find('.kanban-board-header').append(renderBoardDropdown());
+    $(".kanban-board:last-child")
+      .find(".kanban-board-header")
+      .append(renderBoardDropdown());
 
     // Remove current append new add new form
-    addNewInput.val('').css('display', 'none');
-    $('.kanban-container').append(addNewForm);
+    addNewInput.val("").css("display", "none");
+    $(".kanban-container").append(addNewForm);
 
     // Update class & init waves
-    $.each($('.kanban-title-button'), function () {
-      $(this).removeClass().addClass('kanban-title-button btn btn-flat-secondary btn-sm ms-50');
+    $.each($(".kanban-title-button"), function () {
+      $(this)
+        .removeClass()
+        .addClass("kanban-title-button btn btn-flat-secondary btn-sm ms-50");
       Waves.init();
       Waves.attach("[class*='btn-flat-']");
     });
   });
 
   // Clear comment editor on close
-  sidebar.on('hidden.bs.modal', function () {
-    sidebar.find('.ql-editor')[0].innerHTML = '';
-    sidebar.find('.nav-link-activity').removeClass('active');
-    sidebar.find('.tab-pane-activity').removeClass('show active');
-    sidebar.find('.nav-link-update').addClass('active');
-    sidebar.find('.tab-pane-update').addClass('show active');
+  sidebar.on("hidden.bs.modal", function () {
+    sidebar.find(".ql-editor")[0].innerHTML = "";
+    sidebar.find(".nav-link-activity").removeClass("active");
+    sidebar.find(".tab-pane-activity").removeClass("show active");
+    sidebar.find(".nav-link-update").addClass("active");
+    sidebar.find(".tab-pane-update").addClass("show active");
   });
 
   // Re-init tooltip when modal opens(Bootstrap bug)
-  sidebar.on('shown.bs.modal', function () {
+  sidebar.on("shown.bs.modal", function () {
     $('[data-bs-toggle="tooltip"]').tooltip();
   });
 
-  $('.update-item-form').on('submit', function (e) {
+  $(".update-item-form").on("submit", function (e) {
     e.preventDefault();
-    sidebar.modal('hide');
+    sidebar.modal("hide");
   });
 
   // Render custom items
-  $.each($('.kanban-item'), function () {
+  $.each($(".kanban-item"), function () {
     var $this = $(this),
-      $text = "<span class='kanban-text'>" + $this.text() + '</span>';
-    if ($this.attr('data-badge') !== undefined && $this.attr('data-badge-text') !== undefined) {
-      $this.html(renderHeader($this.attr('data-badge'), $this.attr('data-badge-text')) + $text);
+      $text = "<span class='kanban-text'>" + $this.text() + "</span>";
+    if (
+      $this.attr("data-badge") !== undefined &&
+      $this.attr("data-badge-text") !== undefined
+    ) {
+      $this.html(
+        renderHeader($this.attr("data-badge"), $this.attr("data-badge-text")) +
+          $text
+      );
     }
     if (
-      $this.attr('data-comments') !== undefined ||
-      $this.attr('data-due-date') !== undefined ||
-      $this.attr('data-assigned') !== undefined
+      $this.attr("data-comments") !== undefined ||
+      $this.attr("data-due-date") !== undefined ||
+      $this.attr("data-assigned") !== undefined
     ) {
       $this.append(
         renderFooter(
-          $this.attr('data-attachments'),
-          $this.attr('data-comments'),
-          $this.attr('data-assigned'),
-          $this.attr('data-members')
+          $this.attr("data-attachments"),
+          $this.attr("data-comments"),
+          $this.attr("data-assigned"),
+          $this.attr("data-members")
         )
       );
     }
-    if ($this.attr('data-image') !== undefined) {
+    if ($this.attr("data-image") !== undefined) {
       $this.html(
-        renderHeader($this.attr('data-badge'), $this.attr('data-badge-text')) +
+        renderHeader($this.attr("data-badge"), $this.attr("data-badge-text")) +
           "<img class='img-fluid rounded mb-50' src='" +
           assetPath +
-          'images/slider/' +
-          $this.attr('data-image') +
+          "images/slider/" +
+          $this.attr("data-image") +
           "' height='32'/>" +
           $text +
           renderFooter(
-            $this.attr('data-due-date'),
-            $this.attr('data-comments'),
-            $this.attr('data-assigned'),
-            $this.attr('data-members')
+            $this.attr("data-due-date"),
+            $this.attr("data-comments"),
+            $this.attr("data-assigned"),
+            $this.attr("data-members")
           )
       );
     }
-    $this.on('mouseenter', function () {
-      $this.find('.item-dropdown, .item-dropdown .dropdown-menu.show').removeClass('show');
+    $this.on("mouseenter", function () {
+      $this
+        .find(".item-dropdown, .item-dropdown .dropdown-menu.show")
+        .removeClass("show");
     });
   });
 
   if (updateItemSidebar.length) {
-    updateItemSidebar.on('hidden.bs.modal', function () {
-      updateItemSidebar.find('.file-attachments').val('');
+    updateItemSidebar.on("hidden.bs.modal", function () {
+      updateItemSidebar.find(".file-attachments").val("");
     });
   }
 });

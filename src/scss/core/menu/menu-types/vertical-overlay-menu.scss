@@ -9,11 +9,11 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-@import '../../../bootstrap-extended/include'; // Bootstrap includes
-@import '../../../components/include'; // Components includes
+@import "bootstrap-extended/include"; // Bootstrap includes
+@import "components/include"; // Components includes
 
 // Import first main menu mixin
-@import '../../mixins/main-menu-mixin';
+@import "../../mixins/main-menu-mixin";
 
 // Vertical Overlay Menu
 //=========================
