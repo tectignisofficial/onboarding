@@ -1,7 +1,8 @@
 <?php 
 include("include/config.php");
+$id=$_GET['eid'];
 
-if(isset($_POST['submit'])){
+if(isset($_POST['update'])){
 $employee_id=$_POST['employee_id'];
 $name=$_POST['name'];
 $current_address=$_POST['current_address'];
@@ -19,7 +20,7 @@ $father_name=$_POST['father_name'];
 $joiningdate=$_POST['joiningdate'];
 
 
-$sql=mysqli_query($conn,"INSERT INTO `employee`(`employee_id`, `name`, `current_address`, `permanant_address`, `mobile`, `aadhar_no`, `pan_no`,`email`, `job_post`, `probation`, `salary`, `notice_period`, `reporting_manager`, `father_name`,`joiningdate`) VALUES ('$employee_id','$name','$current_address','$permanant_address','$mobile','$aadhar_no','$pan_no','$email','$job_post','$probation','$salary','$notice_period','$reporting_manager','$father_name','$joiningdate')");
+$sql=mysqli_query($conn,"UPDATE `employee` SET `employee_id`='$employee_id',`name`='$name',`current_address`='$current_address',`permanant_address`='$permanant_address',`mobile`='$mobile',`aadhar_no`='$aadhar_no',`pan_no`='$pan_no',`email`='$email',`job_post`='$job_post',`probation`='$probation',`salary`='$salary',`notice_period`='$notice_period',`reporting_manager`='$reporting_manager',`father_name`='$father_name',`joiningdate`='$joiningdate' WHERE id='$id'");
   
   if($sql==1){
      header("location:table.php");
@@ -142,6 +143,10 @@ $sql=mysqli_query($conn,"INSERT INTO `employee`(`employee_id`, `name`, `current_
                 <div class="card-header">
                   <h4 class="card-title">Complete Form</h4>
                 </div>
+                <?php 
+                $sql=mysqli_query($conn,"SELECT * FROM `employee` WHERE id='$id'");
+                $row=mysqli_fetch_array($sql);
+                ?>
                 <div class="card-body">
                   <form class="form" method="post" enctype="multipart/form-data">
                     <div class="row">
@@ -149,107 +154,110 @@ $sql=mysqli_query($conn,"INSERT INTO `employee`(`employee_id`, `name`, `current_
                         <div class="mb-1">
                           <label class="form-label" for="">Employee Id</label>
                           <input type="number" id="employee_id" class="form-control" placeholder="Employee Id"
-                            name="employee_id" />
+                          value="<?php echo $row['employee_id']?>" name="employee_id" />
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Date of Joining</label>
                           <input type="date" id="joiningdate" class="form-control" name="joiningdate"
-                            placeholder="Date of Joining" />
+                          value="<?php echo $row['joiningdate']?>" placeholder="Date of Joining" />
                         </div>
                       </div>
                       <div class="col-md-12 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="name">Full Name</label>
-                          <input type="text" id="name" class="form-control" placeholder="First Name" name="name" />
+                          <input type="text" id="name" class="form-control" placeholder="First Name" value="<?php echo $row['name']?>" name="name" />
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Mobile No.</label>
                           <input type="tel" minlength="10" maxlength="10" id="mobile" class="form-control"
-                            placeholder="Mobile No." name="mobile" />
+                          value="<?php echo $row['mobile']?>" placeholder="Mobile No." name="mobile" />
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="email-id-column">Email</label>
-                          <input type="email" id="email" class="form-control" name="email" placeholder="Email" />
+                          <input type="email" id="email" class="form-control" value="<?php echo $row['email']?>" name="email" placeholder="Email" />
                         </div>
                       </div>
                       <div class="col-md-12 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Current Address</label>
                           <textarea id="current_address" class="form-control" placeholder="Current Address"
-                            name="current_address"></textarea>
+                          value="<?php echo $row['current_address']?>" name="current_address"><?php echo $row['current_address']?></textarea>
                         </div>
                       </div>
                       <div class="col-md-12 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Permanent Address</label>
                           <textarea id="permanant_address" class="form-control" placeholder="Permanent Address"
-                            name="permanant_address"></textarea>
+                          value="<?php echo $row['permanant_address']?>" name="permanant_address"><?php echo $row['permanant_address']?></textarea>
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Aadhar Card</label>
                           <input type="tel" minlength="12" maxlength="12" id="aadhar_no" class="form-control" placeholder="Aadhar Card No."
-                            name="aadhar_no" />
+                          value="<?php echo $row['aadhar_no']?>"  name="aadhar_no" />
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Pan Card</label>
                           <input type="text" minlength="10" maxlength="10" id="pan_no" class="form-control" name="pan_no"
-                            placeholder="Pan Card No." />
+                          value="<?php echo $row['pan_no']?>" placeholder="Pan Card No." />
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Job Post</label>
                           <input type="text" id="job_post" class="form-control" name="job_post"
-                            placeholder="Job Post" />
+                          value="<?php echo $row['job_post']?>" placeholder="Job Post" />
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Probation Period ( In Days )</label>
                           <input type="number" id="probation" class="form-control" name="probation"
-                            placeholder="Probation Period" />
+                          value="<?php echo $row['probation']?>" placeholder="Probation Period" />
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Salary</label>
-                          <input type="number" id="salary" class="form-control" name="salary" placeholder="Salary" />
+                          <input type="number" id="salary" class="form-control" name="salary" value="<?php echo $row['salary']?>" placeholder="Salary" />
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Notice Period ( In Days )</label>
                           <input type="number" id="notice_period" class="form-control" name="notice_period"
-                            placeholder="Notice Period" />
+                          value="<?php echo $row['notice_period']?>" placeholder="Notice Period" />
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Repoting Manager</label>
                           <input type="text" id="reporting_manager" class="form-control" name="reporting_manager"
-                            placeholder="Repoting Manager" />
+                          value="<?php echo $row['reporting_manager']?>" placeholder="Repoting Manager" />
                         </div>
                       </div>
                       <div class="col-md-6 col-12">
                         <div class="mb-1">
                           <label class="form-label" for="">Fathers Name</label>
                           <input type="text" id="father_name" class="form-control" name="father_name"
-                            placeholder="Fathers Name" />
+                          value="<?php echo $row['father_name']?>"  placeholder="Fathers Name" />
                         </div>
                       </div>
                       <div class="col-12">
-                        <button type="submit" name="submit" class="btn btn-primary me-1">
+                        <button type="submit" name="update" class="btn btn-primary me-1">
                           Submit
+                        </button>
+                        <button type="reset" class="btn btn-outline-secondary">
+                          Reset
                         </button>
                       </div>
                     </div>
